@@ -9,10 +9,9 @@ public class TitleGenerator : MonoBehaviour
 
     [SerializeField] private Transform _player;
     private List<GameObject> _activeTiltles = new List<GameObject>();
-    private float _spawnPosition=0;
+    private float _spawnPosition = 0;
     private float _titleLength = 100;
-    private int _startTitles = 8;
-
+    private int _startTitles = 3;
     void Start()
     {
         for(int i = 0; i < _startTitles; i++)
@@ -31,13 +30,20 @@ public class TitleGenerator : MonoBehaviour
     }
     private void SpawnTitles(int tileindex)
     {
-        GameObject newTitle=Instantiate(titlePrefabs[tileindex],transform.forward* _spawnPosition,transform.rotation);
-        _activeTiltles.Add(newTitle);
+        GameObject newTitleCenter = Instantiate(titlePrefabs[tileindex],transform.forward* _spawnPosition,transform.rotation);
+        GameObject newTitleRight = Instantiate(titlePrefabs[Random.Range(0, titlePrefabs.Length)], transform.forward * _spawnPosition + new Vector3(10,0,0), transform.rotation);
+        GameObject newTitleLeft = Instantiate(titlePrefabs[Random.Range(0, titlePrefabs.Length)], transform.forward * _spawnPosition + new Vector3(-10, 0, 0), transform.rotation);
+        _activeTiltles.Add(newTitleLeft);
+        _activeTiltles.Add(newTitleRight);
+        _activeTiltles.Add(newTitleCenter);
         _spawnPosition += _titleLength;
     }
     private void DeleteTitle()
     {
-        Destroy(_activeTiltles[0]);
-        _activeTiltles.RemoveAt(0);
+        for (int i = 0; i < 3; i++)
+        {
+            Destroy(_activeTiltles[0]);
+            _activeTiltles.RemoveAt(0);
+        }
     }
 }

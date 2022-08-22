@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     private CharacterController _controller;
     private Vector3 _vector, _jump;
-    private float _speed = 5f;
+    private float _speed = 8f;
     private float _moveSpeed = 0.1f;
     public bool isGrounted;
     public float jumpForce = 2.0f;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         _vector.z = _speed;
         _controller.Move(_vector*Time.deltaTime);
-        _speed += 0.01f;
+        _speed += 0.1f;
         if (Input.GetMouseButton(0))
         {
             Vector3 mousepose = Camera.main.ScreenToViewportPoint(Input.mousePosition);
